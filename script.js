@@ -26,3 +26,9 @@ const renderer=new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width,sizes.height);
 renderer.render(scene,camera);
+
+//animation function 
+function animate(){
+    requestAnimationFrame(animate)
+    renderer.render(scene,camera)
+};
