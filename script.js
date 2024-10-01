@@ -15,8 +15,16 @@ const material=new THREE.MeshStandardMaterial({
 
 });
 const obj=new THREE.Mesh(object,material);
-const frame = new THREE.WireframeGeometry(object,)
-obj.rotation.y=3;
+
+
+const wiremat= new THREE.MeshBasicMaterial({
+    color:'white',
+    wireframe:true
+})
+const wireframe = new THREE.Mesh(object,wiremat)
+wireframe.scale.setScalar(1.001)
+obj.add(wireframe)
+
 
 scene.add(obj);
 
@@ -55,7 +63,7 @@ const control = new OrbitControls(camera,renderer.domElement)
 //animation function 
 function animate(){
     requestAnimationFrame(animate)
-    obj.rotation.x += 0.01;
+    obj.rotation.y += 0.002;
 
 
 
