@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/Addons.js';
 
 const canvas = document.querySelector('canvas.canvas');
 
@@ -6,22 +7,27 @@ const canvas = document.querySelector('canvas.canvas');
 const scene = new THREE.Scene();
 
 //objects
-const cubegeo= new THREE.BoxGeometry(2,2,2);
-const material=new THREE.MeshStandardMaterial({color:'red'});
-const cube=new THREE.Mesh(cubegeo,material);
-cube.rotation.y=3;
-scene.add(cube);
+const object= new THREE.IcosahedronGeometry(2,2);
+const material=new THREE.MeshStandardMaterial({
+
+    color:'white',
+    flatShading:true
+
+});
+const obj=new THREE.Mesh(object,material);
+const frame = new THREE.WireframeGeometry(object,)
+obj.rotation.y=3;
+
+scene.add(obj);
 
 //lights
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(2,2,2);
+const mainLight = new THREE.HemisphereLight('blue','orange')
 
-const ambientLight = new THREE.AmbientLight(0xffffff);
-scene.add(pointLight);
+scene.add(mainLight);
 
  //Helpers
 
- /* const lightHelper = new THREE.PointLightHelper(pointLight)
+ /* const lightHelper = new THREE.PointLightHelper(mainLight)
  const gridHelper = new THREE.GridHelper(200, 50);
 scene.add(lightHelper, gridHelper) */
 
@@ -39,14 +45,17 @@ const renderer=new THREE.WebGLRenderer({
     canvas:canvas,
     antialias:true
 });
-renderer.setClearColor( 0xffffff, 0);
+/* renderer.setClearColor( 0xffffff, 0); */
 renderer.setSize(sizes.width,sizes.height);
 renderer.render(scene,camera);
+
+//control
+const control = new OrbitControls(camera,renderer.domElement)
 
 //animation function 
 function animate(){
     requestAnimationFrame(animate)
-    cube.rotation.x += 0.01;
+    obj.rotation.x += 0.01;
 
 
 
