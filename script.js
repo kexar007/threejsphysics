@@ -6,24 +6,40 @@ const canvas = document.querySelector('canvas.canvas');
 const scene = new THREE.Scene();
 
 //objects
-const cubegeo= new THREE.BoxGeometry(1,1,1);
-const material=new THREE.MeshBasicMaterial({color:'red'});
+const cubegeo= new THREE.BoxGeometry(2,2,2);
+const material=new THREE.MeshStandardMaterial({color:'red'});
 const cube=new THREE.Mesh(cubegeo,material);
+cube.rotation.y=3;
 scene.add(cube);
+
+//lights
+const pointLight = new THREE.PointLight(0xffffff);
+pointLight.position.set(2,2,2);
+
+const ambientLight = new THREE.AmbientLight(0xffffff);
+scene.add(pointLight);
+
+ //Helpers
+
+ /* const lightHelper = new THREE.PointLightHelper(pointLight)
+ const gridHelper = new THREE.GridHelper(200, 50);
+scene.add(lightHelper, gridHelper) */
 
 //camera
 const sizes = {
-    width:800,
-    height:600
+    width:innerWidth,
+    height:innerHeight
 }
 const camera = new THREE.PerspectiveCamera(75,sizes.width/sizes.height);
-camera.position.z=3;
+camera.position.z=6;
 scene.add(camera);
 
 //renderer
 const renderer=new THREE.WebGLRenderer({
-    canvas:canvas
+    canvas:canvas,
+    antialias:true
 });
+renderer.setClearColor( 0xffffff, 0);
 renderer.setSize(sizes.width,sizes.height);
 renderer.render(scene,camera);
 
